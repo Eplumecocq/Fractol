@@ -10,45 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include "fractol.h"
 #include "libft.h"
+#include "fractol.h"
 
-static int	close_win(int keycode, void *param)
+
+void	draw_again(t_env *env)
+{
+	if (!env->img_ptr)
+			mlx_destroy_image(env->mlx_ptr, env->img_ptr);
+	draw_frac(env);
+}
+
+int		close_win(int keycode, void *param)
 {
 	param = NULL;
 
-	if (keycode == 53)
-		exit (-1);
-	else
-		return(0);
+	if (keycode == KEY_ESC)
+			exit (-1);
+	return (0);
 }
 
-t_mlx	init_mlx(int width, int height, char *title)
+int		main(int ac, char **av)
 {
-	t_mlx	mlx;
+	t_complex	*comp;
+	t_env		*env;
 
-	mlx.ptr = mlx_init();
-	mlx.win = mlx_new_window(mlx.ptr, width, height, title);
-	mlx.width = width;
-	mlx.height = height;
-	return(mlx);
-}
-
-
-
-int		main(void)
-{
-	t_mlx		mlx;
-	t_img		img;
-	
-	mlx = init_mlx(1000, 1000, "fractol");
-	img.ptr = mlx_new_image(mlx.ptr, mlx.width, mlx.height);
-	img.mlx_width = mlx.width;
-	img.addr = mlx_get_data_addr(img.ptr, &img.size_line, &img.bpp, &img.endian);
-	mandelbrot(&img);
-	mlx_put_image_to_window(mlx.ptr, mlx.win,img.ptr, 0, 0);
-	mlx_key_hook(mlx.win, close_win, 0);
-	mlx_loop(mlx.ptr);
-	return(0);
+	if ((env = (t_env *)ft_memalloc(sizeof(t_env))) == NULL)
+			ft_putendl("malloc failed");
+	if ((comp = (t_complex *)ft_memalloc(sizeof(t_complex))) == NULL)
+			ft_putendl("malloc failed");
+	check_fractal(av[1], ac, env);
+	env->mlx_ptr = mlx_init();
+	env->win_ptr = mlx_new_window(env->mlx_ptr, IMAGE_X, IMAGE_Y, "Fractol");
+	env->img_ptr = mlx_new_image(env->mlx_ptr, IMAGE_X, IMAGE_Y);
+	env->addr = mlx_get_data_addr(env->img_ptr, &env->bpp, &env->size_line,
+					&env->endian);
+	ft_putendl("debug");
+	ft_putnbr(env->type);
+	env->comp = comp;
+	env->init = 0;
+	draw_again(env);
+	mlx_key_hook(env->win_ptr, close_win, env);
+	mlx_loop(env->mlx_ptr);
+	return (0);
 }

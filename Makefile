@@ -13,7 +13,7 @@
 NAME = fractol
 
 SRC_PATH = src
-SRC_NAME = main.c mandelbrot.c draw.c
+SRC_NAME = main.c mandelbrot.c draw.c check_errors.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

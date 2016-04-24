@@ -13,69 +13,81 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include <math.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include "libft.h"
+# include "mlx.h"
 
-typedef struct	s_mlx
-{
-	void		*ptr;
-	void		*win;
-	int			width;
-	int			height;
-}				t_mlx;
+// key commands
 
-typedef struct	t_img
-{
-	void		*ptr;
-	void		*addr;
-	int			size_line;
-	int			bpp;
-	int			endian;
-	int			mlx_width;
-}				t_img;
+# define KEY_ESC 53
+# define KEY_UP 
+# define KEY_DOWN
+# define KEY_LEFT
+# define KEY_RIGHT
 
-typedef struct	s_complex
+// colors
+
+# define BLUE 0x0000FF
+# define CYAN
+# define RED 0xFF0000
+# define GREEN 0x00FF00
+# define WHITE 0xFFFFFF
+# define BLACK 0x000000
+
+// settings
+
+# define IMAGE_X 800
+# define IMAGE_Y 600
+
+// fractal type
+
+# define MANDELBROT 1
+# define JULIA 2
+
+// errors
+
+
+
+typedef struct			s_complex
 {
-	double		z_r;
-	double		z_i;
-	double		c_r;
-	double		c_i;
-	double		tmp;
-	int			a;
-	int			b;
-	float		x1;
-	float		x2;
-	float		y1;
-	float		y2;
-	int			zoom_x;
-	int			zoom_y;
-	int			ite_max;
-	int			image_x;
-	int			image_y;
+	double				c_r;
+	double				c_i;
+	double				z_r;
+	double				z_i;
+	double		tmp1;
+	double		tmp2;
+	int			x;
+	int			y;
+	int			z;
+	double		x1;
+	double		x2;
+	double		y1;
+	double		y2;
 }				t_complex;
 
-typedef struct	s_math
+typedef struct	s_env
 {
-	int			dx;
-	int			dy;
-	int			x0;
-	int			x1;
-	int			y0;
-	int			y1;
-	int			error;
-	int			derror;
-	int			steep;
-}				t_math;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img_ptr;
+	int			bpp;	
+	int			size_line;
+	int			endian;
+	int			init;
+	int			zoom;
+	struct s_complex	*comp;
+	char		*addr;
+	int			type;
+	char		*name;
+	int			depth;
+}				t_env;
 
-typedef struct	s_color
-{
-	char		r;
-	char		g;
-	char		b;
-}				t_color;
+void			put_error_usage(void);
+void			put_pixel_to_image(t_env *env, int x, int y, int color);
+void			draw_frac(t_env *env);
+void			mandelbrot(t_env *env);
+void			check_fractal(char *type, int ac, t_env *env);
 
-t_img			draw(t_mlx *mlx);
-void			put_pixel_to_image(t_img *img, int x, int y, int color);
-void			mandelbrot(t_img *img);
 #endif

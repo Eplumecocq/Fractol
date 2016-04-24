@@ -5,73 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/11 18:34:34 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/20 18:15:40 by eplumeco         ###   ########.fr       */
+/*   Created: 2016/04/22 17:49:42 by eplumeco          #+#    #+#             */
+/*   Updated: 2016/04/22 18:44:51 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+
 #include "fractol.h"
-#include "mlx.h"
 
-void	put_pixel_to_image(t_img *img, int x, int y, int color)
+void	put_pixel_to_image(t_env *env, int x, int y, int color)
 {
-	((int *)(img->addr))[y * img->mlx_width + x] = color;
-}
+		int	i;
 
-void	init_line(t_math *m)
-{
-
-	m->steep = 0;
-	if (ft_absolut(m->x0 - m->x1) < ft_absolut(m->y0 - m->y1))
-	{
-		ft_swap(&m->x0, &m->y0);
-		ft_swap(&m->x1, &m->y1);
-		m->steep = 1;
-	}
-	if (m->x0 > m->x1)
-	{
-		ft_swap(&m->x0, &m->x1);
-		ft_swap(&m->y0, &m->y1);
-	}
-	m->dx = m->x1 - m->x0;
-	m->dy = m->y1 - m->y0;
-	m->derror = ft_absolut(m->dy) * 2;
-	m->error = 0;
-}
-
-void	draw_bres(t_img *img, int dotx, int doty, int color)
-{
-	t_math	m;
-
-	init_line(&m);
-	dotx = m.x0;
-	doty = m.y0;
-	while (dotx < m.x1)
-	{
-		if (dotx < img->mlx_width && doty < img->mlx_width && dotx >= 0 && doty >= 0)
+		if (env->endian == 0)
 		{
-			if (m.steep == 1)
-				put_pixel_to_image(img, dotx, doty, color);
-			else
-				put_pixel_to_image(img, doty, dotx, color);
+				i = (env->size_line * y) + (x * (env->bpp / 8));
+				env->addr[i] = mlx_get_color_value(env->mlx_ptr, color);
+				env->addr[i + 1] = mlx_get_color_value(env->mlx_ptr, color >> 8);
+				env->addr[i + 2] = mlx_get_color_value(env->mlx_ptr, color >> 16);
 		}
-		m.error += m.derror;
-		if (m.error > m.dx)
+		else
 		{
-			doty += (m.y1 > m.y0 ? 1 : -1);
-			m.derror -= m.dx * 2;
+				i = (env->size_line * y) + (x * (env->bpp / 8));
+				env->addr[i] = mlx_get_color_value(env->mlx_ptr, color >> 16);
+				env->addr[i + 1] = mlx_get_color_value(env->mlx_ptr, color >> 8);
+				env->addr[i + 2] = mlx_get_color_value(env->mlx_ptr, color);
 		}
-		dotx++;
-	}
 }
 
-/*t_img		draw(t_mlx *mlx)*/
+/*void	put_pixel_to_image(t_env *env, int x, int y, int color)*/
 /*{*/
-	/*t_img	img;*/
-	/*[>int		dotx = 0;<]*/
-	/*[>int		doty = 0;<]*/
+/*int		r;*/
+/*int		g;*/
+/*int		b;*/
+/*int		i;*/
 
-	/*[>draw_bres(&img, dotx, doty, 0x00CDCD);<]*/
-	/*return (img);*/
+/*r = (color >> 16) & 0xFF;*/
+/*g = (color >> 8 ) & 0xFF;*/
+/*b = (color >> 0) & 0xFF;*/
+/*i = x * 4 + y * env->size_line;*/
+/*env->addr[i] = b;*/
+/*env->addr[i + 1] = g;*/
+/*env->addr[i + 2] = r;*/
+/*env->addr[i + 3] = 1;*/
 /*}*/
+
+void	draw_frac(t_env *env)
+{
+
+		if (env->type == MANDELBROT)
+		{
+				mandelbrot(env);
+				mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
+		}
+}
