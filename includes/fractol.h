@@ -46,48 +46,44 @@
 # define MANDELBROT 1
 # define JULIA 2
 
-// errors
-
-
-
 typedef struct			s_complex
 {
 	double				c_r;
 	double				c_i;
 	double				z_r;
 	double				z_i;
-	double		tmp1;
-	double		tmp2;
-	int			x;
-	int			y;
-	int			z;
-	double		x1;
-	double		x2;
-	double		y1;
-	double		y2;
-}				t_complex;
+	double				tmp1;
+	double				tmp2;
+	int					x;
+	int					y;
+	int					z;
+	double				x1;
+	double				x2;
+	double				y1;
+	double				y2;
+}						t_complex;
 
-typedef struct	s_env
+typedef struct			s_env
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img_ptr;
-	int			bpp;	
-	int			size_line;
-	int			endian;
-	int			init;
-	int			zoom;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	void				*img_ptr;
+	int					bpp;	
+	int					size_line;
+	int					endian;
+	int					init;
+	int					zoom;
 	struct s_complex	*comp;
-	char		*addr;
-	int			type;
-	char		*name;
-	int			depth;
-}				t_env;
+	char				*addr;
+	int					type;
+	char				*name;
+	int					depth;
+}						t_env;
 
-void			put_error_usage(void);
-void			put_pixel_to_image(t_env *env, int x, int y, int color);
-void			draw_frac(t_env *env);
-void			mandelbrot(t_env *env);
-void			check_fractal(char *type, int ac, t_env *env);
+void					put_error_usage(void);
+void					put_pixel_to_image(t_env *env, int x, int y, int color);
+void					draw_frac(t_env *env);
+void					mandelbrot(t_env *env);
+void					check_fractal(char *type, int ac, t_env *env);
 
 #endif
