@@ -6,14 +6,14 @@
 #    By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/07 16:48:05 by eplumeco          #+#    #+#              #
-#    Updated: 2016/04/19 13:39:53 by eplumeco         ###   ########.fr        #
+#    Updated: 2016/04/25 15:31:41 by eplumeco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
 SRC_PATH = src
-SRC_NAME = main.c mandelbrot.c draw.c check_errors.c
+SRC_NAME = main.c mandelbrot.c draw.c check_errors.c julia.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

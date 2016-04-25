@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 17:49:42 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/20 16:44:51 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/25 13:10:54 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "fractol.h"
 
 
-void	draw_again(t_env *env)
-{
-	if (!env->img_ptr)
-			mlx_destroy_image(env->mlx_ptr, env->img_ptr);
-	draw_frac(env);
-}
+/*void	draw_again(t_env *env)*/
+/*{*/
+	/*if (!env->img_ptr)*/
+			/*mlx_destroy_image(env->mlx_ptr, env->img_ptr);*/
+	/*draw_frac(env);*/
+/*}*/
 
 int		close_win(int keycode, void *param)
 {
@@ -49,7 +49,9 @@ int		main(int ac, char **av)
 	ft_putnbr(env->type);
 	env->comp = comp;
 	env->init = 0;
-	draw_again(env);
+	if (!env->img_ptr)
+		mlx_destroy_image(env->mlx_ptr, env->img_ptr);
+	draw_frac(env);
 	mlx_key_hook(env->win_ptr, close_win, env);
 	mlx_loop(env->mlx_ptr);
 	return (0);

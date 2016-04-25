@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 17:49:42 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/22 18:44:51 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/25 15:31:07 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,10 @@ void	draw_frac(t_env *env)
 		{
 				mandelbrot(env);
 				mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
+		}
+		else if (env->type == JULIA)
+		{
+			julia(env);
+			mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
 		}
 }

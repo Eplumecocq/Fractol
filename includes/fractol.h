@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 17:50:45 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/20 18:38:20 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/25 16:12:54 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 
 // settings
 
-# define IMAGE_X 800
-# define IMAGE_Y 600
+# define IMAGE_X 1000
+# define IMAGE_Y 800
 
 // fractal type
 
@@ -84,6 +84,7 @@ void					put_error_usage(void);
 void					put_pixel_to_image(t_env *env, int x, int y, int color);
 void					draw_frac(t_env *env);
 void					mandelbrot(t_env *env);
+void					julia(t_env *env);
 void					check_fractal(char *type, int ac, t_env *env);
 
 #endif
