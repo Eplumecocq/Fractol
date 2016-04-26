@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 17:50:45 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/25 18:09:42 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/26 18:55:13 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # include "libft.h"
 # include "mlx.h"
 
-// key commands
+/*
+** Key commands
+*/
 
 # define KEY_ESC 53
 # define KEY_UP 
@@ -27,7 +29,9 @@
 # define KEY_LEFT
 # define KEY_RIGHT
 
-// colors
+/*
+** Colors
+*/
 
 # define BLUE 0x0000FF
 # define CYAN
@@ -36,15 +40,21 @@
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
 
-// settings
+/*
+** Window
+*/
 
-# define IMAGE_X 1000
-# define IMAGE_Y 800
+# define IMAGE_X 1500
+# define IMAGE_Y 1300
 
-// fractal type
+/*
+** Type
+*/
 
 # define MANDELBROT 1
 # define JULIA 2
+# define GLYNN 3
+
 
 typedef struct			s_complex
 {
@@ -68,7 +78,7 @@ typedef struct			s_env
 	void				*mlx_ptr;
 	void				*win_ptr;
 	void				*img_ptr;
-	int					bpp;	
+	int					bpp;
 	int					size_line;
 	int					endian;
 	int					init;
@@ -86,5 +96,7 @@ void					draw_frac(t_env *env);
 void					mandelbrot(t_env *env);
 void					julia(t_env *env);
 void					check_fractal(char *type, int ac, t_env *env);
+void					buddhabrot(t_env *env);
+void					glynn(t_env *env);
 
 #endif

@@ -6,13 +6,12 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 17:49:42 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/25 13:10:54 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/26 12:53:44 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fractol.h"
-
 
 /*void	draw_again(t_env *env)*/
 /*{*/
