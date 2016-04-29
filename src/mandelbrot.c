@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 14:59:57 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/26 17:28:48 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/28 15:08:26 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static	void	color_mandelbrot(t_env *env, t_complex *comp)
 		color = WHITE + env->comp->z / env->depth;
 	else if (comp->z_i < (-4 + env->depth / 1000))
 		color = GREEN + env->comp->z / env->depth;
-	put_pixel_to_image(env, comp->x, comp->y, color / env->depth);
+	put_pixel_to_image(env, comp->x, comp->y, color);
 }
 
 void	draw_mandelbrot(t_env *env, t_complex *comp)

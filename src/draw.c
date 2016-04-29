@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 12:55:15 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/26 18:55:52 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/29 13:55:40 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,25 @@ void	draw_frac(t_env *env)
 	{
 		mandelbrot(env);
 		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
+		mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 10, WHITE, "The current run is Mandelbrot");
 	}
 	else if (env->type == JULIA)
 	{
 		julia(env);
 		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
+		mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 10, WHITE, "The current run is Julia");
 	}
-	else if (env->type == GLYNN)
+	else if (env->type == RANDOM)
 	{
-		glynn(env);
+		random_business(env);
 		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
+		mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 10, WHITE, "The current run is Random_business");
 	}
+}
+
+void	draw_again(t_env *env)
+{
+	if (!env->img_ptr)
+		mlx_destroy_image(env->mlx_ptr, env->win_ptr);
+	draw_frac(env);
 }

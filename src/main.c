@@ -6,33 +6,37 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 17:49:42 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/26 12:53:44 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/29 13:59:05 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fractol.h"
 
-/*void	draw_again(t_env *env)*/
-/*{*/
-	/*if (!env->img_ptr)*/
-			/*mlx_destroy_image(env->mlx_ptr, env->img_ptr);*/
-	/*draw_frac(env);*/
-/*}*/
-
-int		close_win(int keycode, void *param)
+t_move	init_shifting(void)
 {
-	param = NULL;
+	t_move	mov;
 
-	if (keycode == KEY_ESC)
-			exit (-1);
-	return (0);
+	mov.shift.x = 0;
+	mov.shift.y = 0;
+	return(mov);
+}
+
+t_source	init_src(t_env *env, t_complex *comp, t_move *mov)
+{
+	t_source	src;
+
+	src.env = env;
+	src.comp = comp;
+	src.mov = mov;
+	return(src);
 }
 
 int		main(int ac, char **av)
 {
 	t_complex	*comp;
 	t_env		*env;
+	/*t_source	*src;*/
 
 	if ((env = (t_env *)ft_memalloc(sizeof(t_env))) == NULL)
 			ft_putendl("malloc failed");
@@ -44,14 +48,15 @@ int		main(int ac, char **av)
 	env->img_ptr = mlx_new_image(env->mlx_ptr, IMAGE_X, IMAGE_Y);
 	env->addr = mlx_get_data_addr(env->img_ptr, &env->bpp, &env->size_line,
 					&env->endian);
-	ft_putendl("debug");
-	ft_putnbr(env->type);
+	comp->i = 0;
+	comp->j = 0;
 	env->comp = comp;
 	env->init = 0;
-	if (!env->img_ptr)
-		mlx_destroy_image(env->mlx_ptr, env->img_ptr);
-	draw_frac(env);
-	mlx_key_hook(env->win_ptr, close_win, env);
+	/*if (!env->img_ptr)*/
+		/*mlx_destroy_image(env->mlx_ptr, env->img_ptr);*/
+	draw_again(env);
+	mlx_key_hook(env->win_ptr, key_commands, env);
+	/*mlx_hook(env->win_ptr, 6, 0, key_commands, &env);*/
 	mlx_loop(env->mlx_ptr);
 	return (0);
 }

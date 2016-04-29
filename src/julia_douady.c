@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:32:58 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/29 12:14:32 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:10:43 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void			julia(t_env *env)
 		/*comp->c_i = 0.01;*/
 		/*env->depth = 42;*/
 
-		comp->c_r = -0.414;
-		comp->c_i = 0.612;
-		env->depth = 50;
+		/*comp->c_r = -0.414;*/
+		/*comp->c_i = 0.612;*/
+		/*env->depth = 50;*/
 
-		/*comp->c_r = -0.0958;*/
-		/*comp->c_i = 0.735;*/
-		/*env->depth = 20;*/
+		comp->c_r = -0.0958;
+		comp->c_i = 0.735;
+		env->depth = 20;
 
 		/*comp->c_r = 0.382;*/
 		/*comp->c_i = 0.147;*/

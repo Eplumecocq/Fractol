@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:49:17 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/26 18:55:32 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:03:42 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 void	put_error_usage(void)
 {
-	ft_putendl("Usage : ./fractol [Mandelbrot] [Julia]");
+	/*ft_putchar('\n');*/
+	ft_putendl("\x1b[34;01m Usage: ./fractol [Mandelbrot] [Julia] [Random]\n");
 	exit(0);
 }
 
@@ -28,11 +29,11 @@ void	check_fractal(char *type, int ac, t_env *env)
 		env->type = MANDELBROT;
 	else if (ft_strcmp(type, "Julia") == 0)
 		env->type = JULIA;
-	else if (ft_strcmp(type, "Glynn") == 0)
-		env->type = GLYNN;
+	else if (ft_strcmp(type, "Random") == 0)
+		env->type = RANDOM;
 	else
 	{
+		ft_putendl("Please choose a correct argument\n");
 		put_error_usage();
-		ft_putendl("Please choose the correct argument");
 	}
 }
