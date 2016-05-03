@@ -32,23 +32,6 @@ void	put_pixel_to_image(t_env *env, int x, int y, int color)
 	}
 }
 
-/*void	put_pixel_to_image(t_env *env, int x, int y, int color)*/
-/*{*/
-/*int		r;*/
-/*int		g;*/
-/*int		b;*/
-/*int		i;*/
-
-/*r = (color >> 16) & 0xFF;*/
-/*g = (color >> 8 ) & 0xFF;*/
-/*b = (color >> 0) & 0xFF;*/
-/*i = x * 4 + y * env->size_line;*/
-/*env->addr[i] = b;*/
-/*env->addr[i + 1] = g;*/
-/*env->addr[i + 2] = r;*/
-/*env->addr[i + 3] = 1;*/
-/*}*/
-
 void	draw_frac(t_env *env)
 {
 

@@ -29,10 +29,11 @@
 # define KEY_LEFT	123
 # define KEY_RIGHT	124
 # define KEY_RESET	15
-# define KEY_1		18
-# define KEY_2		19
-# define KEY_3		20
-# define KEY_MENU	46
+# define KEY_ZOOM_U 61 	
+# define KEY_ZOOM_D	45
+# define KEY_DEPTH_U 65451
+# define KEY_DEPTH_D 65453
+# define KEY_C		8	
 
 /*
 ** Colors
@@ -93,6 +94,7 @@ typedef struct			s_env
 	int					init;
 	int					zoom;
 	t_complex			*comp;
+	int					co;
 	char				*addr;
 	int					type;
 	char				*name;
@@ -130,5 +132,9 @@ void					random_business(t_env *env);
 void					key_shifting(t_env *env, int key_pressed);
 void					key_reset(t_env *env);
 int						key_commands(int key_pressed, t_env *env);
+void					apply_zoom(t_env *env, int key_pressed, int x, int y);
+void					go_deep(t_env *env, int key_pressed);
+int						mouse_commands(int key_pressed, int x, int y, t_env *env);
+int						motion_commands(int x, int y, t_env *env);
 
 #endif

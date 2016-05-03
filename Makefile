@@ -14,7 +14,7 @@ NAME = fractol
 
 SRC_PATH = src
 SRC_NAME = main.c mandelbrot.c draw.c check_errors.c julia.c random_business.c \
-		   key_commands.c shifting.c julia_douady.c
+		   key_commands.c shifting.c zoom.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

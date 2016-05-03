@@ -36,7 +36,6 @@ int		main(int ac, char **av)
 {
 	t_complex	*comp;
 	t_env		*env;
-	/*t_source	*src;*/
 
 	if ((env = (t_env *)ft_memalloc(sizeof(t_env))) == NULL)
 			ft_putendl("malloc failed");
@@ -52,11 +51,11 @@ int		main(int ac, char **av)
 	comp->j = 0;
 	env->comp = comp;
 	env->init = 0;
-	/*if (!env->img_ptr)*/
-		/*mlx_destroy_image(env->mlx_ptr, env->img_ptr);*/
+	env->co = 0;
 	draw_again(env);
 	mlx_key_hook(env->win_ptr, key_commands, env);
-	/*mlx_hook(env->win_ptr, 6, 0, key_commands, &env);*/
+	mlx_mouse_hook(env->win_ptr, mouse_commands, env);
+	mlx_hook(env->win_ptr, 6, (1L << 6), motion_commands, env);
 	mlx_loop(env->mlx_ptr);
 	return (0);
 }
