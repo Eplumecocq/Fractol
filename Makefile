@@ -6,7 +6,7 @@
 #    By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/07 16:48:05 by eplumeco          #+#    #+#              #
-#    Updated: 2016/04/29 14:10:59 by eplumeco         ###   ########.fr        #
+#    Updated: 2016/05/07 16:05:17 by eplumeco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fractol
 
 SRC_PATH = src
 SRC_NAME = main.c mandelbrot.c draw.c check_errors.c julia.c random_business.c \
-		   key_commands.c shifting.c zoom.c
+		   key_commands.c shifting.c zoom.c colors.c glynn.c burning.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

@@ -1,90 +1,69 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   julia2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/25 10:32:58 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/29 12:14:32 by eplumeco         ###   ########.fr       */
+/*   Created: 2016/05/04 15:29:18 by eplumeco          #+#    #+#             */
+/*   Updated: 2016/05/07 16:23:01 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
-static	void	color_julia(t_env *env, t_complex *comp)
+static void		init_juju(t_complex *comp)
 {
-	int		color;
-
-	color = 0;
-	if (comp->z_i > (0.04 + env->depth / 1000))
-			color = BLUE + env->depth;
-	else if (comp->z_i <= (0.04 + env->depth / 1000) 
-			&& comp->z_i >= (-0.04 + env->depth / 1000))
-			color = WHITE + env->depth;
-	else if (comp->z_i < (-0.04 + env->depth / 1000))
-			color = GREEN + env->depth;
-	put_pixel_to_image(env, comp->x, comp->y, color);
+	comp->x1 = -1.5 / comp->k + comp->coeff2;
+	comp->x2 = 1.5 / comp->k + comp->coeff2;
+	comp->y1 = -1.5 / comp->k + comp->coeff1;
+	comp->y2 = 1.5 / comp->k + comp->coeff1;
+	comp->zoom = 300 * comp->k;
+	comp->imax = 150;
+	comp->zoom_x = (comp->x2 - comp->x1) * comp->zoom;
+	comp->zoom_y = (comp->y2 - comp->y1) * comp->zoom;
 }
 
-static void		draw_julia(t_env *env, t_complex *comp)
+static void		init_coco(t_complex *comp, int x, int y)
 {
-	while (comp->x++ < IMAGE_X - 1)
-	{
-		while (comp->y++ < IMAGE_Y - 1)
-		{
-			comp->z_r = comp->x1 + (comp->x2 - comp->x1) / IMAGE_X * comp->x;
-			comp->z_i = comp->y1 + (comp->y2 - comp->y1) / IMAGE_Y * comp->y;
-			while (comp->z < env->depth)
-			{
-				comp->tmp1 = comp->z_r;
-				comp->z_r = comp->z_r * comp->z_r - comp->z_i * comp->z_i + comp->c_r;
-				comp->z_i = 2 * comp->tmp1 * comp->z_i + comp->c_i;
-				comp->z++;
-			}
-			comp->z = 0;
-			if (comp->z_r * comp->z_r + comp->z_i * comp->z_i <= 4)
-				color_julia(env, comp);
-			else
-				put_pixel_to_image(env, comp->x, comp->y, BLACK);
-		}
-		comp->y = 0;
-	}
+	comp->c_r = comp->jc_r;
+	comp->c_i = comp->jc_i;
+	comp->z_r = x / comp->zoom + comp->x1;
+	comp->z_i = y / comp->zoom + comp->y1;
 }
 
-void			julia(t_env *env)
+void			julia2(t_env *env)
 {
-	t_complex *comp;
+	t_complex	*comp;
+	int			x;
+	int			y;
 
 	comp = env->comp;
-	if (env->init == 0)
-	{
-		/*comp->c_r = 0.285;*/
-		/*comp->c_i = 0.01;*/
-		/*env->depth = 42;*/
-
-		comp->c_r = -0.414;
-		comp->c_i = 0.612;
-		env->depth = 50;
-
-		/*comp->c_r = -0.0958;*/
-		/*comp->c_i = 0.735;*/
-		/*env->depth = 20;*/
-
-		/*comp->c_r = 0.382;*/
-		/*comp->c_i = 0.147;*/
-		/*env->depth = 40;*/
-
-		comp->x1 = -1.6;
-		comp->x2 = 1.6;
-		comp->y1 = -1.4;
-		comp->y2 = 1.4;
-		env->init = 1;
-		env->zoom = 10;
-	}
-	comp->x = 0;
-	comp->y = 0;
+	x = 0;
+	y = 0;
 	comp->z = 0;
-	draw_julia(env, comp);
+
+	init_juju(comp);
+	while (x < IMAGE_X)
+	{
+		y = 0;
+		while (y < IMAGE_Y)
+		{
+			comp->z = 0;
+			init_coco(comp, x, y);
+			while (((comp->z_r * comp->z_r) + (comp->z_i * comp->z_i) < 4) && comp->z < comp->imax)
+			{
+				comp->tmp1 = comp->z_r;
+				comp->z_r = (comp->z_r * comp->z_r) - (comp->z_i * comp->z_i) + comp->c_r;
+				comp->z_i = 2 * comp->z_i * comp->tmp1 + comp->c_i;
+				++comp->z;
+			}
+			if (comp->z == comp->imax)
+				put_pixel_to_image(env, x, y, GREEN);
+			else
+				put_pixel_to_image(env, x, y, ((comp->z * 700) / comp->imax));
+			++y;
+		}
+		++x;
+	}
 }

@@ -6,27 +6,12 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:34:08 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/28 11:42:32 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/05/03 14:15:58 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
-
-static	void	color_business(t_env *env, t_complex *comp)
-{
-	int		color;
-
-	color = 0;
-	if (comp->z_i > (0.04 + env->depth / 1000))
-			color = BLUE + env->depth;
-	else if (comp->z_i <= (0.04 + env->depth / 1000) 
-			&& comp->z_i >= (-0.04 + env->depth / 1000))
-			color = WHITE + env->depth;
-	else if (comp->z_i < (-0.04 + env->depth / 1000))
-			color = YELLOW + env->depth;
-	put_pixel_to_image(env, comp->x, comp->y, color);
-}
 
 static void	draw_business(t_env *env, t_complex *comp)
 {

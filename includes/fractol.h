@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 17:50:45 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/29 14:53:08 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/05/07 16:19:25 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@
 # define KEY_ZOOM_D	45
 # define KEY_DEPTH_U 65451
 # define KEY_DEPTH_D 65453
-# define KEY_C		8	
+# define KEY_O		31
+# define KEY_RESET_ALL 0
+# define MLX_MOD_SHIFT	1 << 0
 
 /*
 ** Colors
 */
 
 # define BLUE		0x0000FF
-# define CYAN
+# define CYAN		0x00FFFF
 # define RED		0xFF0000
 # define GREEN		0x00FF00
 # define WHITE		0xFFFFFF
@@ -51,8 +53,10 @@
 ** Window
 */
 
-# define IMAGE_X	1500
-# define IMAGE_Y	1300
+# define IMAGE_X	800
+# define IMAGE_Y	600
+# define IMAGE_DX	(double)IMAGE_X
+# define IMAGE_DY	(double)IMAGE_Y
 # define STEP		0.1
 
 /*
@@ -60,8 +64,10 @@
 */
 
 # define MANDELBROT 1
-# define JULIA 2
-# define RANDOM 3
+# define JULIA		2
+# define RANDOM		3
+# define GLYNN		4
+# define BURNING	5
 
 
 typedef struct			s_complex
@@ -79,8 +85,21 @@ typedef struct			s_complex
 	double				x2;
 	double				y1;
 	double				y2;
+	double				coeff1;
+	double				coeff2;
 	int					i;
 	int					j;
+	double				k;
+	double				jc_r;
+	double				jc_i;
+	double				gc_r;
+	double				gc_i;
+	double				zoom_x;
+	double				zoom_y;
+	double				zoom;
+	double				image_x;
+	double				image_y;
+	double				imax;
 }						t_complex;
 
 typedef struct			s_env
@@ -94,17 +113,13 @@ typedef struct			s_env
 	int					init;
 	int					zoom;
 	t_complex			*comp;
-	int					co;
+	int					on;
 	char				*addr;
 	int					type;
 	char				*name;
 	int					depth;
 }						t_env;
 
-typedef struct			s_move
-{
-	t_complex			shift;
-}						t_move;
 
 typedef struct			s_zoom
 {
@@ -118,7 +133,6 @@ typedef struct			s_source
 {
 	t_complex			*comp;
 	t_env				*env;
-	t_move				*mov;
 }						t_source;
 
 void					put_error_usage(void);
@@ -126,15 +140,22 @@ void					put_pixel_to_image(t_env *env, int x, int y, int color);
 void					draw_frac(t_env *env);
 void					draw_again(t_env *env);
 void					mandelbrot(t_env *env);
-void					julia(t_env *env);
+void					julia2(t_env *env);
 void					check_fractal(char *type, int ac, t_env *env);
 void					random_business(t_env *env);
 void					key_shifting(t_env *env, int key_pressed);
 void					key_reset(t_env *env);
+void					reset_all(t_env *env);
 int						key_commands(int key_pressed, t_env *env);
 void					apply_zoom(t_env *env, int key_pressed, int x, int y);
 void					go_deep(t_env *env, int key_pressed);
 int						mouse_commands(int key_pressed, int x, int y, t_env *env);
 int						motion_commands(int x, int y, t_env *env);
+void					color_mandelbrot(t_env *env, t_complex *comp);
+void					color_julia(t_env *env, t_complex *comp);
+void					color_business(t_env *env, t_complex *comp);
+void					glynn(t_env *env);
+void					burning_ship(t_env *env);
+t_complex				init_tmp(t_complex *comp);
 
 #endif

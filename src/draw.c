@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 12:55:15 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/29 13:55:40 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/05/07 16:11:48 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_frac(t_env *env)
 	}
 	else if (env->type == JULIA)
 	{
-		julia(env);
+		julia2(env);
 		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
 		mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 10, WHITE, "The current run is Julia");
 	}
@@ -52,6 +52,18 @@ void	draw_frac(t_env *env)
 		random_business(env);
 		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
 		mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 10, WHITE, "The current run is Random_business");
+	}
+	else if (env->type == GLYNN)
+	{
+		glynn(env);
+		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
+		mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 10, WHITE, "The current run is Glynn");	
+	}
+	else if (env->type == BURNING)
+	{
+		burning_ship(env);
+		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
+		mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 10, WHITE, "The current run is Burning_ship");	
 	}
 }
 

@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot2.c                                      :+:      :+:    :+:   */
+/*   burning.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/03 18:23:58 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/05/07 15:59:38 by eplumeco         ###   ########.fr       */
+/*   Created: 2016/05/07 15:40:20 by eplumeco          #+#    #+#             */
+/*   Updated: 2016/05/07 16:15:30 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
-static void		init_mandel(t_complex *comp, t_env *env)
+static void		init_burning(t_complex *comp, t_env *env)
 {
-	comp->x1 = -2.1  / comp->k + comp->coeff2;
-	comp->x2 = 0.6 / comp->k + comp->coeff2;
-	comp->y1 = -1.2 / comp->k + comp->coeff1;
-	comp->y2 = 1.2 / comp->k + comp->coeff1;
+	comp->x1 = -1.8 / comp->k + comp->coeff2;
+	comp->x2 = 2.6 / comp->k + comp->coeff2;
+	comp->y1 = -0.1 / comp->k + comp->coeff1;
+	comp->y2 = 2.2 / comp->k + comp->coeff1;
+	comp->imax = 10;
 	comp->zoom_x = IMAGE_X / (comp->x2 - comp->x1);
 	comp->zoom_y = IMAGE_Y / (comp->y2 - comp->y1);
-	comp->imax = 50;
 	env->init = 0;
 }
 
@@ -33,16 +32,15 @@ static void		init_coco(t_complex *comp, int x, int y)
 	comp->z_i = 0;
 }
 
-void	mandelbrot(t_env *env)
+void		burning_ship(t_env *env)
 {
-	t_complex *comp;
+	t_complex	*comp;
+	int			x;
+	int			y;
 
 	comp = env->comp;
-	int		y;
-	int		x;
-	
+	init_burning(comp, env);
 	x = 0;
-	init_mandel(comp, env);
 	while (x < IMAGE_X)
 	{
 		y = 0;
@@ -50,11 +48,11 @@ void	mandelbrot(t_env *env)
 		{
 			comp->z = 0;
 			init_coco(comp, x, y);
-			while (((comp->z_r * comp->z_r) + (comp->z_i * comp->z_i) < 4) && comp->z < comp->imax)
+			while (((comp->z_r * comp->z_r) + (comp->z_i + comp->z_i) < 4) && comp->z < comp->imax)
 			{
 				comp->tmp1 = comp->z_r;
-				comp->z_r = (comp->z_r * comp->z_r) - (comp->z_i * comp->z_i) + comp->c_r;
-				comp->z_i = 2 * comp->z_i * comp->tmp1 + comp->c_i;
+				comp->z_r = ft_absolut((comp->z_r * comp->z_r) - (comp->c_i * comp->c_i) + comp->c_r);
+				comp->z_i = ft_absolut((2 * comp->z_i * comp->tmp1) + comp->c_i);
 				++comp->z;
 			}
 			if (comp->z == comp->imax)
@@ -65,4 +63,5 @@ void	mandelbrot(t_env *env)
 		}
 		++x;
 	}
+
 }
