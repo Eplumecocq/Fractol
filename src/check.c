@@ -6,16 +6,20 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/18 12:07:08 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/05/24 11:28:48 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/05/26 14:36:29 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "libft.h"
 
-void		put_error_usage(void)
+void	put_error_usage(void)
 {
-	ft_putendl("\x1b[34;01m Usage : ./fractol [Mandelbrot] [Julia] [Glynn]\n");
+	ft_putchar('\n');
+	ft_putendl("\x1b[31;01m Try again with one of the following param :\n");
+	ft_putendl("\x1b[31;01m           [Mandelbrot]\n");
+	ft_putendl("\x1b[31;01m           [Julia]\n");
+	ft_putendl("\x1b[31;01m           [Glynn]\n");
 	exit(0);
 }
 
@@ -30,8 +34,5 @@ void	check_fractal(char *type, int ac, t_env *env)
 	else if (ft_strcmp(type, "Glynn") == 0)
 		env->type = GLYNN;
 	else
-	{
-		ft_putendl("Please chosse a correct argument\n");
 		put_error_usage();
-	}
 }

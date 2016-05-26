@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 17:50:45 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/05/24 18:48:44 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/05/26 15:53:45 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@
 # define KEY_ITEM		78
 # define KEY_RESET		15
 # define KEY_C			8
-# define WHEEL_ZOOM_U	5 	
+# define WHEEL_ZOOM_U	5
 # define WHEEL_ZOOM_D	4
 # define KEY_O			31
-# define MLX_MOD_SHIFT	1 << 0
+# define KEY_M			46
 # define KEY_FRAC_1		18
 # define KEY_FRAC_2		19
 # define KEY_FRAC_3		20
+# define KEY_FRAC_4		21
 
 /*
 ** Colors
@@ -93,24 +94,22 @@ typedef struct			s_env
 	int					init;
 	int					x;
 	int					y;
-	int					z;
 	int					itemax;
 	int					type;
 	int					r;
 	int					g;
 	int					b;
-	char				*name;
 	int					on;
+	int					menu;
 	double				tmp;
 	void				*mlx_ptr;
 	void				*win_ptr;
-	t_img				img;	
+	t_img				img;
 }						t_env;
 
 void					put_error_usage(void);
 void					check_fractal(char *type, int ac, t_env *env);
 void					put_pixel(t_env *env, int r, int g, int b);
-void					put_pixel_to_image(t_env *env, int x, int y, int color);
 int						draw_fractal(t_env *env);
 t_env					init_fractal(t_env *env);
 t_env					mandelbrot(t_env *env);
@@ -125,7 +124,12 @@ int						motion_commands(int x, int y, t_env *env);
 void					shifting_y(int key_pressed, t_env *env);
 void					shifting_x(int key_pressed, t_env *env);
 void					switch_fractal(int key_pressed, t_env *env);
+void					switch_fractal_bis(int key_pressed, t_env *env);
 void					zoom(int key_pressed, int x, int y, t_env *env);
-int						mouse_commands(int key_pressed, int x, int y, t_env *env);
+int						mouse_commands(int key_pressed, int x, int y,
+						t_env *env);
+void					window_menu(t_env *env);
+void					permanent_menu(t_env *env);
+t_env					do_it_again(t_env *env);
 
 #endif

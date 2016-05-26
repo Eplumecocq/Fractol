@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/18 11:56:25 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/05/24 17:40:33 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/05/26 12:41:06 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ int		main(int ac, char **av)
 	check_fractal(av[1], ac, env);
 	init_fractal(env);
 	env->on = 0;
+	env->menu = 0;
 	env->mlx_ptr = mlx_init();
 	env->win_ptr = mlx_new_window(env->mlx_ptr, IMAGE_X, IMAGE_Y, "Fract'ol");
 	env->img.img_ptr = mlx_new_image(env->mlx_ptr, IMAGE_X, IMAGE_Y);
-	env->img.addr = mlx_get_data_addr(env->img.img_ptr, &env->img.bpp, &env->img.size_line, &env->img.endian);
+	env->img.addr = mlx_get_data_addr(env->img.img_ptr, &env->img.bpp,
+			&env->img.size_line, &env->img.endian);
 	mlx_expose_hook(env->win_ptr, draw_fractal, env);
 	mlx_mouse_hook(env->win_ptr, mouse_commands, env);
-	mlx_hook(env->win_ptr, 2, 0,  key_commands, env);
+	mlx_hook(env->win_ptr, 2, 0, key_commands, env);
 	mlx_hook(env->win_ptr, 6, (1L > 0), &motion_commands, env);
 	mlx_loop(env->mlx_ptr);
 	return (0);

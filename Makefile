@@ -6,7 +6,7 @@
 #    By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/07 16:48:05 by eplumeco          #+#    #+#              #
-#    Updated: 2016/05/24 17:19:11 by eplumeco         ###   ########.fr        #
+#    Updated: 2016/05/26 16:49:15 by eplumeco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fractol
 
 SRC_PATH = src
 SRC_NAME = main.c mandelbrot.c draw.c check.c julia.c key_commands.c glynn.c \
-		   shifting.c switching.c mouse_commands.c
+		   shifting.c switching.c mouse_commands.c menu.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -27,7 +27,7 @@ PATH_MINILIBX = minilibx/
 MINILIBX = minilibx/libmlx.a  -framework OpenGL -framework AppKit
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -ggdb
+CFLAGS = -Wall -Wextra -Werror
 
 SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
